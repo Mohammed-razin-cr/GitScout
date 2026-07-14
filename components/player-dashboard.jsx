@@ -1,8 +1,9 @@
 'use client';
 import { toPng } from 'html-to-image';
-import { CalendarDays, Copy, Download, ExternalLink, GitFork, MapPin, Share2, Sparkles, Star, Users } from 'lucide-react';
+import { CalendarDays, Copy, Download, ExternalLink, GitFork, MapPin, Radar, Share2, Star, Users } from 'lucide-react';
 import Link from 'next/link';
 import { useRef } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip as ChartTooltip } from 'recharts';
 import { toast } from 'sonner';
 import { ActivityGrid } from '@/components/activity-grid';
@@ -20,6 +21,7 @@ import { compactNumber } from '@/lib/github';
 const chartColors = ['var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)', 'var(--chart-5)'];
 export function PlayerDashboard({ developer }) {
     const cardRef = useRef(null);
+    const reduce = useReducedMotion();
     const copy = async () => { await navigator.clipboard.writeText(window.location.href); toast.success('Profile link copied'); };
     const share = async () => { if (navigator.share)
         await navigator.share({ title: `${developer.name} on GitScout`, url: window.location.href });
@@ -38,7 +40,7 @@ export function PlayerDashboard({ developer }) {
       <div className="spotlight left-1/2 top-0 h-80 w-[44rem] -translate-x-1/2"/>
       <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <Reveal><div className="max-w-3xl"><Badge variant="outline" className="border-primary/25 bg-primary/5 px-3 py-1.5 text-primary"><Sparkles /> Public GitHub profile</Badge><h1 className="mt-5 text-balance font-heading text-4xl font-black tracking-[-.04em] sm:text-5xl lg:text-7xl">{developer.name}</h1><p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">{developer.bio}</p><div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground"><span className="flex items-center gap-2"><MapPin className="size-4 text-primary"/>{developer.location}</span><span className="flex items-center gap-2"><CalendarDays className="size-4 text-primary"/>On GitHub since {new Date(developer.joined).getFullYear()}</span><span className="flex items-center gap-2"><Users className="size-4 text-primary"/>{compactNumber(developer.followers)} followers</span></div></div></Reveal>
+          <Reveal><div className="max-w-3xl"><Badge variant="outline" className="border-primary/25 bg-primary/5 px-3 py-1.5 text-primary"><motion.span aria-hidden="true" className="inline-flex" animate={reduce ? undefined : { rotate: 360 }} transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}><Radar className="size-3.5"/></motion.span>Public GitHub profile</Badge><h1 className="mt-5 text-balance font-heading text-4xl font-black tracking-[-.04em] sm:text-5xl lg:text-7xl">{developer.name}</h1><p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">{developer.bio}</p><div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground"><span className="flex items-center gap-2"><MapPin className="size-4 text-primary"/>{developer.location}</span><span className="flex items-center gap-2"><CalendarDays className="size-4 text-primary"/>On GitHub since {new Date(developer.joined).getFullYear()}</span><span className="flex items-center gap-2"><Users className="size-4 text-primary"/>{compactNumber(developer.followers)} followers</span></div></div></Reveal>
           <div className="flex flex-wrap gap-2"><Button variant="outline" onClick={copy}><Copy data-icon="inline-start"/>Copy</Button><Button variant="outline" onClick={share}><Share2 data-icon="inline-start"/>Share</Button><Button className="premium-button" onClick={download}><Download data-icon="inline-start"/>Export card</Button></div>
         </div>
       </div>

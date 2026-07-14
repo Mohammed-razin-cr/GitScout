@@ -1,6 +1,7 @@
 import { ArrowRight, ExternalLink, GitBranch, GitCompareArrows } from 'lucide-react';
 import Link from 'next/link';
 import { DeveloperCard } from '@/components/developer-card';
+import { HeroCardShowcase } from '@/components/hero-card-showcase';
 import { LiveCardCount } from '@/components/live-card-count';
 import { ProfileSearch } from '@/components/profile-search';
 import { Reveal } from '@/components/reveal';
@@ -193,11 +194,7 @@ export default function Home() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.12} className="relative">
-              <div className="card-stage">
-                <DeveloperCard developer={topDevCards[0]}/>
-              </div>
-            </Reveal>
+            <Reveal delay={0.12} className="relative"><HeroCardShowcase developer={topDevCards[0]}/></Reveal>
           </div>
         </section>
 
@@ -230,7 +227,7 @@ export default function Home() {
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            {featuredProjects.map((project) => (<a key={project.name} href={project.href} target="_blank" rel="noreferrer" className="glass-panel-subtle group flex min-h-60 flex-col p-5 transition-transform hover:-translate-y-1">
+            {featuredProjects.map((project) => (<a key={project.name} href={project.href} target="_blank" rel="noreferrer" className="repo-card glass-panel-subtle group flex min-h-60 flex-col p-5">
                 <span className="w-fit rounded-full border border-border bg-background/60 px-3 py-1 text-xs text-muted-foreground">{project.language}</span>
                 <h3 className="mt-6 font-heading text-xl font-black tracking-tight group-hover:text-primary">{project.name}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
