@@ -7,6 +7,7 @@ import { ScrollProgress } from '@/components/scroll-progress';
 const links = [
     { href: '/compare', label: 'Compare', icon: Swords },
     { href: '/leaderboard', label: 'Leaderboard', icon: BarChart3 },
+    { href: 'https://github.com/Mohammed-razin-cr/GitScout', label: 'Connect', icon: GitBranch, external: true },
 ];
 export function SiteHeader() {
     return (<header className="sticky top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4"><ScrollProgress />
@@ -16,7 +17,7 @@ export function SiteHeader() {
           <span className="font-heading text-lg font-black tracking-tight">Git<span className="gold-text">Card</span></span>
         </Link>
         <div className="hidden items-center gap-1 md:flex">
-          {links.map(({ href, label }) => <Button key={href} variant="ghost" nativeButton={false} render={<Link href={href}/>}>{label}</Button>)}
+          {links.map(({ href, label, external }) => <Button key={href} variant="ghost" nativeButton={false} render={external ? <a href={href} target="_blank" rel="noreferrer"/> : <Link href={href}/>}>{label}</Button>)}
           <Button nativeButton={false} render={<Link href="/#scout"/>} className="premium-button ml-2 rounded-xl">Build a card</Button>
         </div>
         <div className="flex items-center gap-1 md:hidden">
@@ -24,7 +25,7 @@ export function SiteHeader() {
             <SheetTrigger render={<Button aria-label="Open navigation" variant="ghost" size="icon"><Menu /></Button>}/>
             <SheetContent side="right" className="w-[min(86vw,340px)] border-primary/15 bg-background/90 p-6 backdrop-blur-2xl">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
-              <div className="mt-12 flex flex-col gap-3">{links.map(({ href, label, icon: Icon }) => <Button key={href} variant="ghost" nativeButton={false} render={<Link href={href}/>} className="h-11 justify-start"><Icon data-icon="inline-start"/>{label}</Button>)}<Button nativeButton={false} render={<Link href="/#scout"/>} className="premium-button mt-4 h-11">Build a card</Button></div>
+              <div className="mt-12 flex flex-col gap-3">{links.map(({ href, label, icon: Icon, external }) => <Button key={href} variant="ghost" nativeButton={false} render={external ? <a href={href} target="_blank" rel="noreferrer"/> : <Link href={href}/>} className="h-11 justify-start"><Icon data-icon="inline-start"/>{label}</Button>)}<Button nativeButton={false} render={<Link href="/#scout"/>} className="premium-button mt-4 h-11">Build a card</Button></div>
             </SheetContent>
           </Sheet>
         </div>
