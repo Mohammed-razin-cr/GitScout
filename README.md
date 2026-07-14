@@ -47,11 +47,14 @@ pnpm build
 
 ## GitHub API
 
-GitScout works without a token, but unauthenticated GitHub API requests are rate-limited. For heavier local testing, add a token:
+GitScout works without a token, but unauthenticated GitHub API requests are rate-limited. For heavier usage, add one token or a comma-separated backup pool:
 
 ```bash
 GITHUB_TOKEN=your_token_here
+GITHUB_TOKENS=backup_token_1,backup_token_2,backup_token_3
 ```
+
+`GITHUB_TOKEN` is still supported for a single account. `GITHUB_TOKENS` lets the app rotate requests and retry with another token when GitHub returns rate-limit responses.
 
 ## Shared card counter
 
