@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
-import { completeCardRequest } from '@/lib/card-count';
+import { completeCardRequest, recordCardRating } from '@/lib/card-count';
 
 export function CardCountTracker({ username }) {
     useEffect(() => {
-        completeCardRequest(username);
+        if (completeCardRequest(username))
+            recordCardRating().catch(() => undefined);
     }, [username]);
 
     return null;

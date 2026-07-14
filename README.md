@@ -21,6 +21,7 @@ The featured profile in this project is [Mohammed Razin CR](https://github.com/M
 - Base UI components
 - Recharts
 - GitHub REST API
+- Cloudflare D1 (shared cards-rated counter)
 
 ## Getting Started
 
@@ -51,6 +52,12 @@ GitScout works without a token, but unauthenticated GitHub API requests are rate
 ```bash
 GITHUB_TOKEN=your_token_here
 ```
+
+## Shared card counter
+
+The `cards rated` number is stored in Cloudflare D1, not in browser storage. The production Worker uses a D1 binding named `DB` that points to the `gitscout-counter` database. The schema is included in [migrations/0001_card_count.sql](migrations/0001_card_count.sql).
+
+For another Cloudflare environment, create a D1 database, bind it to the Worker as `DB`, and run that migration before deploying.
 
 ## Project Notes
 
