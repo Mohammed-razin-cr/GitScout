@@ -1,0 +1,98 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist), sans-serif;
+  --font-heading: var(--font-geist), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover); --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1); --color-chart-2: var(--chart-2); --color-chart-3: var(--chart-3); --color-chart-4: var(--chart-4); --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) * .55); --radius-md: calc(var(--radius) * .75); --radius-lg: var(--radius); --radius-xl: calc(var(--radius) * 1.25); --radius-2xl: calc(var(--radius) * 1.5); --radius-3xl: calc(var(--radius) * 1.8);
+  --animate-shimmer: shimmer 4.5s linear infinite;
+}
+
+:root, .dark {
+  color-scheme: dark;
+  --background: oklch(.105 .025 18); --foreground: oklch(.95 .018 78);
+  --card: oklch(.16 .032 18 / .74); --card-foreground: var(--foreground);
+  --popover: oklch(.15 .028 18 / .96); --popover-foreground: var(--foreground);
+  --primary: oklch(.77 .12 78); --primary-foreground: oklch(.13 .026 18);
+  --secondary: oklch(.205 .044 18 / .82); --secondary-foreground: var(--foreground);
+  --muted: oklch(.20 .027 18 / .75); --muted-foreground: oklch(.71 .03 45);
+  --accent: oklch(.34 .13 22); --accent-foreground: oklch(.97 .015 76);
+  --destructive: oklch(.62 .22 25); --border: oklch(.36 .07 34 / .52); --input: oklch(.29 .055 24 / .72); --ring: var(--primary);
+  --chart-1: oklch(.77 .12 78); --chart-2: oklch(.58 .21 24); --chart-3: oklch(.66 .13 51); --chart-4: oklch(.47 .13 18); --chart-5: oklch(.83 .07 86);
+  --radius: 1.5rem;
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body { @apply bg-background text-foreground; min-width: 320px; overflow-x: clip; background-image: radial-gradient(circle at 50% -10%, oklch(.30 .11 22 / .35), transparent 35%), linear-gradient(180deg, oklch(.12 .03 18), var(--background) 42%); }
+  a, button { @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background; }
+  ::selection { background: oklch(.68 .19 24 / .55); color: var(--foreground); }
+}
+
+@layer components {
+  .glass-panel { @apply rounded-3xl border border-primary/15 bg-card/70 backdrop-blur-2xl; box-shadow: inset 0 1px 0 oklch(.95 .05 78 / .08), 0 22px 70px oklch(.04 .02 18 / .48), 0 0 40px oklch(.58 .18 24 / .06); }
+  .glass-panel-subtle { @apply rounded-3xl border border-border/60 bg-card/45 backdrop-blur-xl; box-shadow: inset 0 1px 0 oklch(.95 .05 78 / .05), 0 16px 50px oklch(.04 .02 18 / .34); }
+  .gold-text { background: linear-gradient(110deg, oklch(.67 .11 69), oklch(.93 .09 90), oklch(.72 .13 70)); background-clip: text; color: transparent; }
+  .brand-mark { @apply flex size-10 items-center justify-center rounded-2xl text-primary-foreground; background: linear-gradient(145deg, oklch(.86 .10 86), oklch(.61 .12 60)); box-shadow: inset 0 1px 0 oklch(1 0 0 / .38), 0 8px 28px oklch(.72 .14 72 / .2); }
+  .brand-mark svg { @apply size-5; }
+  .footer-link { @apply text-muted-foreground transition-colors hover:text-primary; }
+  .premium-button { box-shadow: inset 0 1px 0 oklch(1 0 0 / .2), 0 10px 30px oklch(.58 .2 24 / .2); transition: transform .25s ease, box-shadow .25s ease; }
+  .premium-button:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 oklch(1 0 0 / .25), 0 14px 38px oklch(.58 .2 24 / .3); }
+  .mini-card { @apply flex w-48 items-center gap-4 rounded-2xl border border-primary/20 bg-card/75 p-4 shadow-2xl shadow-background/40 backdrop-blur-xl; }
+  .mini-card-row { @apply w-full justify-start; }
+}
+
+.ambient { z-index: -1; }
+.spotlight { pointer-events: none; position: absolute; border-radius: 999px; background: radial-gradient(circle, oklch(.52 .17 22 / .22), transparent 68%); filter: blur(32px); }
+.card-stage { position: relative; width: 100%; display: flex; justify-content: center; }
+.card-stage::before { content: ''; position: absolute; inset: 12% 4% 2%; border-radius: 999px; background: radial-gradient(circle, oklch(.77 .12 78 / .2), transparent 68%); filter: blur(42px); }
+.top-dev-card-fan { position: relative; height: 480px; margin: 0 auto; isolation: isolate; }
+.top-dev-fan-card { position: absolute; left: calc(50% + var(--fan-x)); top: 50%; width: 290px; transform: translate(-50%, -50%) rotate(var(--fan-rotate)) scale(var(--fan-scale)); transform-origin: center bottom; transition: transform .35s ease, filter .35s ease; }
+.top-dev-fan-card:hover { z-index: 10; filter: brightness(1.08); transform: translate(-50%, calc(-50% - 14px)) rotate(0) scale(calc(var(--fan-scale) + .04)); }
+.top-dev-fan-card-0 { --fan-x: -330px; --fan-rotate: -10deg; --fan-scale: .7; z-index: 1; }
+.top-dev-fan-card-1 { --fan-x: -170px; --fan-rotate: -5deg; --fan-scale: .8; z-index: 2; }
+.top-dev-fan-card-2 { --fan-x: 0px; --fan-rotate: 0deg; --fan-scale: .96; z-index: 5; }
+.top-dev-fan-card-3 { --fan-x: 170px; --fan-rotate: 5deg; --fan-scale: .8; z-index: 2; }
+.top-dev-fan-card-4 { --fan-x: 330px; --fan-rotate: 10deg; --fan-scale: .7; z-index: 1; }
+.ambient-spotlight { position: absolute; border-radius: 999px; filter: blur(40px); opacity: .42; }
+.ambient-spotlight-left { left: -18%; top: 8%; width: 48rem; height: 48rem; background: radial-gradient(circle, oklch(.48 .18 22 / .34), transparent 67%); }
+.ambient-spotlight-right { right: -22%; top: 42%; width: 42rem; height: 42rem; background: radial-gradient(circle, oklch(.76 .12 75 / .13), transparent 68%); }
+.ambient-vignette { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 35%, oklch(.06 .02 18 / .62) 100%); }
+.ambient-particle { position: absolute; border-radius: 999px; background: var(--primary); box-shadow: 0 0 16px var(--primary); }
+.hero-grid { background-image: linear-gradient(oklch(.75 .09 75 / .055) 1px, transparent 1px), linear-gradient(90deg, oklch(.75 .09 75 / .055) 1px, transparent 1px); background-size: 72px 72px; mask-image: linear-gradient(to bottom, black, transparent 90%); }
+.holographic { background: linear-gradient(115deg, transparent 22%, oklch(.87 .09 88 / .08) 35%, oklch(.63 .18 24 / .13) 48%, oklch(.92 .08 85 / .16) 54%, transparent 68%); background-size: 240% 100%; }
+@keyframes shimmer { from { background-position: 210% 0 } to { background-position: -30% 0 } }
+@media (max-width: 1023px) {
+  .top-dev-card-fan { height: 410px; }
+  .top-dev-fan-card { width: 260px; }
+  .top-dev-fan-card-0 { --fan-x: -240px; --fan-scale: .58; }
+  .top-dev-fan-card-1 { --fan-x: -125px; --fan-scale: .68; }
+  .top-dev-fan-card-2 { --fan-x: 0px; --fan-scale: .82; }
+  .top-dev-fan-card-3 { --fan-x: 125px; --fan-scale: .68; }
+  .top-dev-fan-card-4 { --fan-x: 240px; --fan-scale: .58; }
+}
+@media (max-width: 639px) {
+  .ambient-spotlight-left { width: 28rem; height: 28rem; }
+  .ambient-spotlight-right { width: 24rem; height: 24rem; }
+  .top-dev-card-fan { height: 370px; max-width: 390px; }
+  .top-dev-fan-card { width: 250px; }
+  .top-dev-fan-card-0, .top-dev-fan-card-4 { display: none; }
+  .top-dev-fan-card-1 { --fan-x: -110px; --fan-scale: .58; }
+  .top-dev-fan-card-2 { --fan-x: 0px; --fan-scale: .82; }
+  .top-dev-fan-card-3 { --fan-x: 110px; --fan-scale: .58; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
