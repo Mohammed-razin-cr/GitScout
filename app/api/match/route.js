@@ -21,7 +21,7 @@ export async function POST(request) {
         try {
             const input = requestSchema.parse(body);
             const names = { Marvel: 'Peter Parker', DC: 'Barbara Gordon', Anime: 'Izuku Midoriya', 'Star Wars': 'Ahsoka Tano', 'Harry Potter': 'Hermione Granger', Gaming: 'Zelda' };
-            return NextResponse.json({ ...demoMatch, characterName: names[input.universe], universe: input.universe, characterTraits: input.traits, matchPercentage: 88, tagline: 'Your traits form a rare heroic pattern.', explanation: `Your strongest qualities—${traitKeys.sort((a, b) => input.traits[b] - input.traits[a]).slice(0, 3).map((key) => traitLabels[key].toLowerCase()).join(', ')}—align with ${names[input.universe]}. You approach challenges with a distinctive balance of conviction and care, making this a natural match within the ${input.universe} universe.` });
+            return NextResponse.json({ ...demoMatch, recommendations: demoMatch.similarCharacters ?? [], characterName: names[input.universe], universe: input.universe, characterTraits: input.traits, matchPercentage: 88, tagline: 'Your traits form a rare heroic pattern.', explanation: `Your strongest qualities—${traitKeys.sort((a, b) => input.traits[b] - input.traits[a]).slice(0, 3).map((key) => traitLabels[key].toLowerCase()).join(', ')}—align with ${names[input.universe]}. You approach challenges with a distinctive balance of conviction and care, making this a natural match within the ${input.universe} universe.` });
         }
         catch {
             return NextResponse.json({ error: 'The character match could not be created. Please try again.' }, { status: 500 });
