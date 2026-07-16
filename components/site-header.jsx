@@ -14,7 +14,7 @@ export function SiteHeader() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between rounded-3xl border border-primary/15 bg-background/65 px-3 shadow-2xl shadow-background/50 backdrop-blur-2xl sm:px-5">
         <Link href="/" className="group flex items-center gap-3">
           <span className="brand-mark"><GitBranch /></span>
-          <span className="font-heading text-lg font-black tracking-tight">Git<span className="gold-text">Card</span></span>
+          <span className="font-heading text-lg font-black tracking-tight">Git<span className="gold-text">Scout</span></span>
         </Link>
         <div className="hidden items-center gap-1 md:flex">
           {links.map(({ href, label, external }) => <Button key={href} variant="ghost" nativeButton={false} render={external ? <a href={href} target="_blank" rel="noreferrer"/> : <Link href={href}/>}>{label}</Button>)}

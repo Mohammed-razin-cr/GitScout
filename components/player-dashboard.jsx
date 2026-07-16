@@ -28,7 +28,7 @@ export function PlayerDashboard({ developer }) {
     else
         await copy(); };
     const download = async () => { if (!cardRef.current)
-        return; const url = await toPng(cardRef.current, { pixelRatio: 2, cacheBust: true }); const link = document.createElement('a'); link.download = `${developer.login}-gitcard.png`; link.href = url; link.click(); toast.success('Profile card exported'); };
+        return; const url = await toPng(cardRef.current, { pixelRatio: 2, cacheBust: true }); const link = document.createElement('a'); link.download = `${developer.login}-gitscout.png`; link.href = url; link.click(); toast.success('Profile card exported'); };
     const metrics = [
         { icon: Star, value: developer.stars, label: 'Stars earned' },
         { icon: GitFork, value: developer.forks, label: 'Forks inspired' },
