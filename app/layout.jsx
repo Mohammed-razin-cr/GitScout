@@ -6,12 +6,13 @@ import './globals.css';
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' });
 const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' });
 export const metadata = {
+    metadataBase: new URL('https://gitscout.me'),
     title: { default: 'GitScout - GitHub profile cards', template: '%s · GitScout' },
     description: 'Create clean, shareable developer cards from public GitHub profiles, repositories, languages, stars, and activity.',
     openGraph: {
         title: 'GitScout - GitHub profile cards',
         description: 'Create clean, shareable developer cards from public GitHub profiles.',
-        url: 'https://github.com/Mohammed-razin-cr',
+        url: 'https://gitscout.me',
         siteName: 'GitScout',
         type: 'website',
     },

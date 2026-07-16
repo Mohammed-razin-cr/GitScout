@@ -23,10 +23,10 @@ export function PlayerDashboard({ developer }) {
     const cardRef = useRef(null);
     const reduce = useReducedMotion();
     const copy = async () => { await navigator.clipboard.writeText(window.location.href); toast.success('Profile link copied'); };
-    const share = async () => { if (navigator.share)
-        await navigator.share({ title: `${developer.name} on GitScout`, url: window.location.href });
+    const share = async () => { const url = `${window.location.origin}/card/${developer.login}`; if (navigator.share)
+        await navigator.share({ title: `${developer.name} on GitScout`, url });
     else
-        await copy(); };
+        { await navigator.clipboard.writeText(url); toast.success('Share card link copied'); } };
     const download = async () => { if (!cardRef.current)
         return; const url = await toPng(cardRef.current, { pixelRatio: 2, cacheBust: true }); const link = document.createElement('a'); link.download = `${developer.login}-gitscout.png`; link.href = url; link.click(); toast.success('Profile card exported'); };
     const metrics = [
