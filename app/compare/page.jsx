@@ -11,7 +11,7 @@ export default async function ComparePage({ searchParams }) {
       <main className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow mx-auto w-fit">Side by side</p>
-          <h1 className="mt-5 font-heading text-5xl font-black tracking-tight">
+          <h1 className="mt-5 text-balance font-heading text-4xl font-black tracking-tight sm:text-5xl">
             Compare two GitHub cards.
           </h1>
           <p className="mt-4 text-muted-foreground">
@@ -23,7 +23,7 @@ export default async function ComparePage({ searchParams }) {
           <CompareSearch left={left} right={right}/>
         </div>
 
-        {a && b && (<div className="mt-14 grid items-start gap-10 lg:grid-cols-2">
+        {a && b && (<div className="mt-10 grid items-start gap-8 sm:mt-14 sm:gap-10 lg:grid-cols-2">
             <div className="card-stage">
               <DeveloperCard developer={a}/>
             </div>

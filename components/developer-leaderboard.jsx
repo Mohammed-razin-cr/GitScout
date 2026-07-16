@@ -26,7 +26,7 @@ function FilterSelect({ label, value, onChange, options }) {
 function PodiumCard({ developer, position, className }) {
     const reduce = useReducedMotion();
     const meta = podiumMeta[position];
-    return <motion.article initial={reduce ? false : { opacity: 0, y: 28 }} animate={reduce ? undefined : { opacity: 0 + 1, y: 0 }} transition={{ delay: position * 0.1 }} whileHover={reduce ? undefined : { y: -8 }} className={cn('glass-panel relative flex flex-col items-center overflow-hidden p-5 text-center', className)}>
+    return <motion.article initial={reduce ? false : { opacity: 0, y: 28 }} animate={reduce ? undefined : { opacity: 1, y: 0 }} transition={{ delay: position * 0.1 }} whileHover={reduce ? undefined : { y: -8 }} className={cn('glass-panel relative flex min-w-0 flex-col items-center overflow-hidden p-5 text-center', className)}>
       <div className="absolute inset-x-10 top-0 h-24 rounded-full bg-primary/10 blur-3xl"/>
       <span className="relative mb-3 flex size-10 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10 font-heading text-lg font-black text-primary">{meta.mark}</span>
       <Avatar className="relative size-20 ring-4 ring-primary/15"><AvatarImage src={developer.avatar} alt={`${developer.name}'s profile`}/><AvatarFallback>{developer.name.slice(0, 2)}</AvatarFallback></Avatar>

@@ -106,4 +106,13 @@
   .top-dev-fan-card-3 { --fan-x: 110px; --fan-scale: .58; }
   .hero-card-showcase { min-height: 420px; }.hero-orbit-large { width: 112%; }
 }
+@media (max-width: 430px) {
+  .top-dev-card-fan { height: 350px; max-width: 320px; }
+  .top-dev-fan-card { width: min(86vw, 300px); }
+  .top-dev-fan-card-1, .top-dev-fan-card-3 { display: none; }
+  .top-dev-fan-card-2 { --fan-scale: 1; }
+  .hero-card-showcase { min-height: 390px; }
+  .hero-orbit-large { width: 120%; }
+  .hero-orbit-small { width: 86%; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
