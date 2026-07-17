@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 const compact = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 });
 const scannedDate = new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
 const podiumOrder = [1, 0, 2];
+const coreLanguages = ['JavaScript', 'TypeScript', 'Python', 'Java', 'C++', 'C', 'C#', 'Go', 'Rust', 'PHP', 'Ruby', 'Kotlin', 'Swift', 'Dart', 'Scala', 'Elixir', 'HTML', 'CSS', 'Shell', 'Objective-C', 'R', 'Lua', 'Haskell', 'Perl', 'Groovy', 'Clojure', 'F#', 'Julia', 'Assembly', 'SQL', 'PowerShell'];
 const podiumMeta = [
     { label: 'Second', mark: '2', className: 'md:mt-10' },
     { label: 'First', mark: '1', className: 'md:-mt-2' },
@@ -47,11 +48,22 @@ export function DeveloperLeaderboard({ developers = [] }) {
     const [language, setLanguage] = useState('All languages');
     const [rating, setRating] = useState('All');
     const [sort, setSort] = useState('Overall Rating');
-    const languages = useMemo(() => ['All languages', ...new Set(developers.map((developer) => developer.topLanguage).filter(Boolean).sort())], [developers]);
+    const languages = useMemo(() => {
+        const discovered = developers.map((developer) => developer.topLanguage).filter(Boolean).map((value) => value.trim());
+        const available = new Set([...coreLanguages, ...discovered]);
+        return ['All languages', ...Array.from(available).sort((left, right) => left.localeCompare(right))];
+    }, [developers]);
     const filtered = useMemo(() => {
         const minimum = rating === 'All' ? 0 : Number.parseInt(rating, 10);
         const query = search.trim().toLowerCase();
-        return developers.filter((developer) => !query || [developer.name, developer.username, developer.location, developer.topLanguage].filter(Boolean).some((value) => value.toLowerCase().includes(query))).filter((developer) => language === 'All languages' || developer.topLanguage === language).filter((developer) => developer.rating >= minimum).sort((left, right) => {
+        const selectedLanguage = language === 'All languages' ? null : language.trim().toLowerCase();
+        return developers.filter((developer) => {
+            const searchableText = [developer.name, developer.username, developer.location, developer.topLanguage].filter(Boolean).join(' ').toLowerCase();
+            const matchesQuery = !query || searchableText.includes(query);
+            const matchesLanguage = !selectedLanguage || developer.topLanguage?.trim().toLowerCase() === selectedLanguage;
+            const matchesRating = developer.rating >= minimum;
+            return matchesQuery && matchesLanguage && matchesRating;
+        }).sort((left, right) => {
             if (sort === 'Followers') return right.followers - left.followers;
             if (sort === 'Stars') return right.stars - left.stars;
             if (sort === 'Repositories') return right.repositories - left.repositories;
